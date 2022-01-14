@@ -11,12 +11,14 @@ históricos y de agrado para los turistas, por ende, se hace necesario la creaci
 Aplicativo Web que contenga toda está información, facilitando al usuario el acceso a estos
 datos.
 
+
 *Visión del proyecto*
 
 Ser un Aplicativo Web reconocido por la información que brinda acerca de los lugares
 turísticos más visitados en Antioquia, y a su vez ir creciendo en el alcance de la plataforma
 con nuevos sitios turísticos a nivel nacional y de otros países, como un Aplicativo Web que
 atribuye al crecimiento del turismo y la economía de la localidad a visitar.
+
 
 *Justificación de la solución*
 
@@ -27,11 +29,13 @@ pretende ser multiplataforma e impulsar al crecimiento económico y social, en d
 usuario puede conocer datos históricos, imágenes, sitios de comercio y estadía para visitar
 estos lugares a fines de ocio.
 
+
 *Objetivo General*
 
 Desarrollar un Aplicativo Web informativo de turismo, mediante la metodología SCRUM,
 para la conservación de información actualizada de los sitios más visitados en Antioquia y
 de la misma manera los sitios poco conocidos del turismo Antioqueño.
+
 
 *Objetivos Específicos*
 
