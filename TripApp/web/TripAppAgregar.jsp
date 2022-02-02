@@ -37,9 +37,10 @@
     </div>
 
     <div class="container">
-        <form action="ProductoServlet" method="post" class="form-control"
+        <form action="LugarTripAppServlet" method="post" class="form-control"
             style="width: 100%; height: auto; border: none; padding-bottom: 30px;">
-            <h4 class="texto10">AGREGAR SITIO TURÍSTICO</h4>
+            
+            <h4 class="texto10"><a href="TripAppAdmon.jsp"  style="color: #3e7c17;"><-</a>AGREGAR SITIO TURÍSTICO</h4>
             <h4 class="texto9">Id sitio turístico:</h4>
             <input type="text" name="txtid_turistico" class="form-control" placeholder="Id sitio turístico" />
             <h4 class="texto9">Nombre sitio turístico:</h4>

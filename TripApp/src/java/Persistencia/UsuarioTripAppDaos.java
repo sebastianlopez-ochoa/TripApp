@@ -85,4 +85,57 @@ public class UsuarioTripAppDaos extends ConexionBDA {
         }
         return aux;
     }
+    
+    public boolean autenticarRegistro(String email, String contrasena){
+        
+        ResultSet rs= null;
+        
+        try {
+            consulta = "SELECT * FROM usuario WHERE email =? and contrasena =?";
+            ps = (PreparedStatement) getcon().prepareStatement(consulta);
+            ps.setString(1, email);
+            ps.setString(2, contrasena);
+            rs = ps.executeQuery();
+            if(rs.absolute(1)){
+                return true;
+            }
+        } catch (SQLException e) {
+        }finally{
+            try {
+                if(getcon()!= null ) getcon().close();
+                if(ps!= null ) ps.close();
+                if(rs!= null ) rs.close();
+            } catch (SQLException e) {
+            }
+        }
+        return false;
+    }
+    
+    public EntUsuarioTripApp validacionUsuario(String email, String contrasena) {
+        //objeto de tipo class
+        EntUsuarioTripApp aux = new EntUsuarioTripApp();
+        consulta = "SELECT * FROM usuario WHERE email =? and contrasena =?";
+        try {
+            //preparamos la sentencia sql
+            ps= getcon().prepareStatement(consulta);
+            ps.setString(1, email);
+            ps.setString(2, contrasena);
+            ResultSet resultado=ps.executeQuery();
+            while(resultado.next()){
+                aux.setId_usuario(resultado.getInt(1));
+                aux.setEmail(resultado.getString(2));
+                aux.setContrasena(resultado.getString(3));
+                aux.setId_rol(resultado.getInt(4));
+            }//fin while
+
+        } catch (SQLException e) {
+        } finally {
+            try {
+                if(getcon()!= null ) getcon().close();
+                if(ps!= null ) ps.close();
+            } catch (SQLException e) {
+            }
+        }
+        return aux;
+    }
 }

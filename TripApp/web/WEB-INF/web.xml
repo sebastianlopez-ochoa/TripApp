@@ -5,8 +5,8 @@
         <servlet-class>Servlet.UsuarioTripAppServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>EnvioServlet</servlet-name>
-        <servlet-class>Servlet.EnvioServlet</servlet-class>
+        <servlet-name>LugarTripAppServlet</servlet-name>
+        <servlet-class>Servlet.LugarTripAppServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ProductoServlet</servlet-name>
@@ -17,16 +17,16 @@
         <servlet-class>Servlet.RegistroServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>InicioSesion</servlet-name>
-        <servlet-class>Servlet.InicioSesionServlet</servlet-class>
+        <servlet-name>InicioSesionTripAppServlet</servlet-name>
+        <servlet-class>Servlet.InicioSesionTripAppServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UsuarioTripAppServlet</servlet-name>
         <url-pattern>/UsuarioTripAppServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>EnvioServlet</servlet-name>
-        <url-pattern>/EnvioServlet</url-pattern>
+        <servlet-name>LugarTripAppServlet</servlet-name>
+        <url-pattern>/LugarTripAppServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProductoServlet</servlet-name>
@@ -37,8 +37,8 @@
         <url-pattern>/RegistroServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>InicioSesion</servlet-name>
-        <url-pattern>/InicioSesion</url-pattern>
+        <servlet-name>InicioSesionTripAppServlet</servlet-name>
+        <url-pattern>/InicioSesionTripAppServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -40,7 +40,7 @@
     <div class="container">
         <div class="row">
             <article class="col-sm-6 col-md-6">
-                <form action="InicioSesion" class="form-control" style="width: 100%; height: auto; border: none;">
+                <form action="InicioSesionTripAppServlet" class="form-control" style="width: 100%; height: auto; border: none;">
                     <h4 class="texto10">INICIAR SESIÓN</h4>
                     <h4 class="texto9">Email:</h4>
                     <input type="text" name="txtCorreo" class="form-control" placeholder="Email" />

@@ -4,28 +4,31 @@
  * and open the template in the editor.
  */
 package Negocio;
- import Entidades.EntUsuarioTripApp;
+
+import Entidades.EntUsuarioTripApp;
 import Persistencia.UsuarioTripAppDaos;
 import java.util.List;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author SEBASTIAN
  */
 public class NegUsuarioTripApp {
+
     public UsuarioTripAppDaos datos;
 
     public NegUsuarioTripApp() {
         this.datos = new UsuarioTripAppDaos();
     }
-    
+
     public void Registro(EntUsuarioTripApp registro) throws Exception {
 
         String mensajeError = "";
         //defino las variables
         String email_registro = registro.getEmail();
         String contra_registro = registro.getContrasena();
-        
+
         //verificación de datos
         if (email_registro == null || "".equals(email_registro)) {
             mensajeError = mensajeError + "Email no valido";
@@ -33,7 +36,7 @@ public class NegUsuarioTripApp {
         if (contra_registro == null || "".equals(contra_registro)) {
             mensajeError = mensajeError + "Contraseña no valido";
         }
-       
+
         if (!"".equals(mensajeError)) {
             throw new Exception(mensajeError);
         }//fin mensaje de error
@@ -42,5 +45,15 @@ public class NegUsuarioTripApp {
         if (!"".equals(mensajeError)) {
             throw new Exception(mensajeError);
         }//fin mensaje de error
+    }
+
+    public boolean AutenticarRegistro(String email, String contrasena) {
+        boolean respuesta = datos.autenticarRegistro(email, contrasena);
+        return respuesta;
+    }
+
+    public EntUsuarioTripApp AutenticarTipoUsuario(String email, String contrasena) {
+        EntUsuarioTripApp respuesta = datos.validacionUsuario(email, contrasena);
+        return respuesta;
     }
 }

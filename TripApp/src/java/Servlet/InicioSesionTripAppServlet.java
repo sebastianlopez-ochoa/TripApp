@@ -5,23 +5,21 @@
  */
 package Servlet;
 
-import Entidades.EntUsuarioTripApp;
 import Negocio.NegUsuarioTripApp;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author USUARIO
+ * @author SEBASTIAN
  */
-public class UsuarioTripAppServlet extends HttpServlet {
+@WebServlet(name = "InicioSesionTripAppServlet", urlPatterns = {"/InicioSesionTripAppServlet"})
+public class InicioSesionTripAppServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,40 +33,25 @@ public class UsuarioTripAppServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-       
-        String modulo = "./TripAppMiCuenta.jsp";
-        
-        NegUsuarioTripApp co = new NegUsuarioTripApp();
-        EntUsuarioTripApp entRegistro = new EntUsuarioTripApp();
-        
-        request.setAttribute("lista", null);
-        request.setAttribute("datos", null);
-        request.setAttribute("target", null);
-        
-        String email_registro = request.getParameter("txtemail_registro");
-        String contraseña_registro = request.getParameter("txtcontra_registro");
-        String mensaje = "";
-        
 
-        
-        //Registro Regsitro
-        //Funciona
-        if ("Registrarse".equals(request.getParameter("Registrarse"))) {            
-            try {
-               co.Registro(new EntUsuarioTripApp(email_registro, contraseña_registro));
-               mensaje = "Registrado";
-            } catch (Exception e) {
-                Logger.getLogger(UsuarioTripAppServlet.class.getName()).log(Level.SEVERE, null, e);
-                mensaje += "" + e.getMessage();
+        NegUsuarioTripApp co = new NegUsuarioTripApp();
+        String email_inicio_sesion = request.getParameter("txtCorreo");
+        String contrasena_inicio_sesion = request.getParameter("txtContrasena");
+
+        if (co.AutenticarRegistro(email_inicio_sesion, contrasena_inicio_sesion)) {
+            if (co.AutenticarTipoUsuario(email_inicio_sesion, contrasena_inicio_sesion).getId_rol() == 2) {
+                //Pantalla ??? jsp
+                response.sendRedirect("TripAppAdmon.jsp");
+            } else {
+                //Pantalla Admin jsp
+                response.sendRedirect("TripAppCliente.jsp");
             }
-            request.setAttribute("mensaje", mensaje);
-        }//fin Registro
-        
-        request.getRequestDispatcher(modulo).forward(request, response);
-    }//fin processRequest
-    
-    
+
+        } else {
+            response.sendRedirect("TripAppMiCuenta.jsp");
+        }
+    }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
