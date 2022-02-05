@@ -28,6 +28,13 @@ public class EntComentarioTripApp {
         this.id_usuario = id_usuario;
     }
 
+    public EntComentarioTripApp(String nombre_persona, String comentario, int id_lugar) {
+        this.nombre_persona = nombre_persona;
+        this.comentario = comentario;
+        this.id_lugar = id_lugar;
+    }
+    
+
     public int getId_comentario() {
         return id_comentario;
     }

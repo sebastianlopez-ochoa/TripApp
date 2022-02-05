@@ -7,6 +7,7 @@ package Negocio;
 
 import Entidades.EntLugarTripApp;
 import Persistencia.LugarTripAppDaos;
+import java.io.InputStream;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -30,7 +31,7 @@ public class NegLugarTripApp {
         String nombre_lugar = registro.getNombre_lugar();
         String punto_cardinal = registro.getPunto_cardinal();
         String ubicacion = registro.getUbicacion();
-        Object imagen = registro.getImagen();
+        InputStream imagen = registro.getImagen();
         String descripcion = registro.getDescripcion();
         //verificación de datos
         if ("".equals(id_lugar)) {
@@ -71,7 +72,7 @@ public class NegLugarTripApp {
         String nombre_lugar = actualizar.getNombre_lugar();
         String punto_cardinal = actualizar.getPunto_cardinal();
         String ubicacion = actualizar.getUbicacion();
-        Object imagen = actualizar.getImagen();
+        InputStream imagen = actualizar.getImagen();
         String descripcion = actualizar.getDescripcion();
 
         //verificación de datos

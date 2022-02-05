@@ -39,7 +39,7 @@
     <div class="container">
         <form action="LugarTripAppServlet" method="post" class="form-control"
             style="width: 100%; height: auto; border: none; padding-bottom: 30px;">
-            <h4 class="texto10">ELIMINAR SITIO TURÍSTICO</h4>
+            <h4 class="texto10"><a href="TripAppAdmon.jsp"  style="color: #3e7c17;"><-</a>ELIMINAR SITIO TURÍSTICO</h4>
             <h4 class="texto9">Id sitio turístico:</h4>
             <input type="text" name="txtid_turistico" class="form-control" placeholder="Id sitio turístico" />
             <br>

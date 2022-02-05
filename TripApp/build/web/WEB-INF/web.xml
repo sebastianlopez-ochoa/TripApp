@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
+        <servlet-name>ComentarioServlet</servlet-name>
+        <servlet-class>Servlet.ComentarioServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>UsuarioTripAppServlet</servlet-name>
         <servlet-class>Servlet.UsuarioTripAppServlet</servlet-class>
     </servlet>
@@ -9,12 +13,12 @@
         <servlet-class>Servlet.LugarTripAppServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProductoServlet</servlet-name>
-        <servlet-class>Servlet.ProductoServlet</servlet-class>
+        <servlet-name>IndexTripAppServlet</servlet-name>
+        <servlet-class>Servlet.IndexTripAppServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>RegistroServlet</servlet-name>
-        <servlet-class>Servlet.RegistroServlet</servlet-class>
+        <servlet-name>ControlerIMGServlet</servlet-name>
+        <servlet-class>Servlet.ControlerIMGServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>InicioSesionTripAppServlet</servlet-name>
@@ -29,16 +33,20 @@
         <url-pattern>/LugarTripAppServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ProductoServlet</servlet-name>
-        <url-pattern>/ProductoServlet</url-pattern>
+        <servlet-name>IndexTripAppServlet</servlet-name>
+        <url-pattern>/IndexTripAppServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>RegistroServlet</servlet-name>
-        <url-pattern>/RegistroServlet</url-pattern>
+        <servlet-name>ControlerIMGServlet</servlet-name>
+        <url-pattern>/ControlerIMGServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>InicioSesionTripAppServlet</servlet-name>
         <url-pattern>/InicioSesionTripAppServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ComentarioServlet</servlet-name>
+        <url-pattern>/ComentarioServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

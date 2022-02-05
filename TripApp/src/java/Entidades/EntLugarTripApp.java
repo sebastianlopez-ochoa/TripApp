@@ -5,6 +5,8 @@
  */
 package Entidades;
 
+import java.io.InputStream;
+
 /**
  *
  * @author SEBASTIAN
@@ -15,13 +17,13 @@ public class EntLugarTripApp {
     private String nombre_lugar;
     private String punto_cardinal;
     private String ubicacion;
-    private Object imagen;
+    private InputStream imagen;
     private String descripcion;
 
     public EntLugarTripApp() {
     }
 
-    public EntLugarTripApp(int id_lugar, String nombre_lugar, String punto_cardinal, String ubicacion, Object imagen, String descripcion) {
+    public EntLugarTripApp(int id_lugar, String nombre_lugar, String punto_cardinal, String ubicacion, InputStream imagen, String descripcion) {
         this.id_lugar = id_lugar;
         this.nombre_lugar = nombre_lugar;
         this.punto_cardinal = punto_cardinal;
@@ -62,11 +64,11 @@ public class EntLugarTripApp {
         this.ubicacion = ubicacion;
     }
 
-    public Object getImagen() {
+    public InputStream getImagen() {
         return imagen;
     }
 
-    public void setImagen(Object imagen) {
+    public void setImagen(InputStream imagen) {
         this.imagen = imagen;
     }
 
@@ -77,4 +79,6 @@ public class EntLugarTripApp {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+    
 }

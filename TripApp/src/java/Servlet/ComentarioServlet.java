@@ -5,16 +5,14 @@
  */
 package Servlet;
 
-import Entidades.EntLugarTripApp;
-import Negocio.NegLugarTripApp;
-import java.io.ByteArrayInputStream;
+import Entidades.EntComentarioTripApp;
+import Negocio.NegComentarioTripApp;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author SEBASTIAN
  */
-public class LugarTripAppServlet extends HttpServlet {
+@WebServlet(name = "ComentarioServlet", urlPatterns = {"/ComentarioServlet"})
+public class ComentarioServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,32 +36,22 @@ public class LugarTripAppServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
 
-        String modulo = "./TripAppAdmon.jsp";
-
-        NegLugarTripApp lugar = new NegLugarTripApp();
-        EntLugarTripApp entLugar = new EntLugarTripApp();
+        NegComentarioTripApp comen = new NegComentarioTripApp();
 
         request.setAttribute("lista", null);
         request.setAttribute("datos", null);
         request.setAttribute("target", null);
-
-        String id_lugar = request.getParameter("txtid_turistico");
-        String nombre_lugar = request.getParameter("txtnombre_turistico");
-        String punto_cardinal = request.getParameter("txtpunto_turistico");
-        String ubicacion = request.getParameter("txtubicacion_turistico");
-        String imagen = request.getParameter("fileimagen_turistico");
-        String descripcion = request.getParameter("txtdescripcion_turistico");
         String mensaje = "";
-        int idLugar = 0;
-        InputStream img;
 
+        String nombre_persona = request.getParameter("txt_nombre");
+        String comentario = request.getParameter("txt_comen");
+        String id_lugar = request.getParameter("txt_id_lugar");
+        int idLugar;
         if ("Agregar".equals(request.getParameter("Agregar"))) {
             idLugar = Integer.parseInt(id_lugar);
-            img = new ByteArrayInputStream(imagen.getBytes());
             try {
-                lugar.Registro(new EntLugarTripApp(idLugar, nombre_lugar, punto_cardinal, ubicacion, img, descripcion));
+                comen.Registro(new EntComentarioTripApp(nombre_persona, comentario, idLugar));
                 mensaje = "Registrado";
             } catch (Exception e) {
                 Logger.getLogger(UsuarioTripAppServlet.class.getName()).log(Level.SEVERE, null, e);
@@ -71,37 +60,10 @@ public class LugarTripAppServlet extends HttpServlet {
             request.setAttribute("mensaje", mensaje);
         }
         
-        if ("Actualizar".equals(request.getParameter("Actualizar"))) {
-            idLugar = Integer.parseInt(id_lugar);
-            img = new ByteArrayInputStream(imagen.getBytes());
-            try {
-                lugar.actualizarLugar(new EntLugarTripApp(idLugar, nombre_lugar, punto_cardinal, ubicacion, img, descripcion));
-                //admin.(codigo_admin, nombre_admin, correo_admin, contra_admin);
-                mensaje = "Editado";
-                List<EntLugarTripApp> listProductos = lugar.ListaLugar();
-            } catch (Exception e) {
-                Logger.getLogger(LugarTripAppServlet.class.getName()).log(Level.SEVERE, null, e);
-                mensaje += "" + e.getMessage();
-            }
-            request.setAttribute("mensaje", mensaje);
-        }
-        
-        if ("Eliminar".equals(request.getParameter("Eliminar"))) {
-            idLugar = Integer.parseInt(id_lugar);
-            try {
-                 lugar.EliminarLugar(idLugar);
-                 mensaje = "Borrado";
-                
-            } catch (Exception e) {
-                Logger.getLogger(LugarTripAppServlet.class.getName()).log(Level.SEVERE, null, e);
-                mensaje += "" + e.getMessage();
-            }
-            request.setAttribute("mensaje", mensaje);
-        }
-        
-        request.getRequestDispatcher(modulo).forward(request, response);//Redireciona a la pagina
-
+        String modulo = "./TripAppVer.jsp?idd="+id_lugar;
+        request.getRequestDispatcher(modulo).forward(request, response);
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -140,4 +102,5 @@ public class LugarTripAppServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

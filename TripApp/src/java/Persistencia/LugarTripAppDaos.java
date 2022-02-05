@@ -7,11 +7,17 @@ package Persistencia;
 
 import Entidades.EntLugarTripApp;
 import Utilidades.ConexionBDA;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -23,8 +29,11 @@ public class LugarTripAppDaos extends ConexionBDA {
     }
     String consulta;
     PreparedStatement ps = null;
+    Connection con;
+    ConexionBDA cn = new ConexionBDA();  
+    ResultSet rs;
 
-    public String Registro(int id_lugar, String nombre_lugar, String punto_cardinal, String ubicacion, Object imagen, String descripcion) {
+    public String Registro(int id_lugar, String nombre_lugar, String punto_cardinal, String ubicacion, InputStream imagen, String descripcion) {
         String respuesta = null;
 
         try {
@@ -34,7 +43,7 @@ public class LugarTripAppDaos extends ConexionBDA {
             ps.setString(2, nombre_lugar);
             ps.setString(3, punto_cardinal);
             ps.setString(4, ubicacion);
-            ps.setObject(5, imagen);
+            ps.setBinaryStream(5, imagen);
             ps.setString(6, descripcion);
 
             int result = ps.executeUpdate();
@@ -57,7 +66,7 @@ public class LugarTripAppDaos extends ConexionBDA {
         return respuesta;
     }
 
-    public String ActualizarLugar(int id_lugar, String nombre_lugar, String punto_cardinal, String ubicacion, Object imagen, String descripcion) {
+    public String ActualizarLugar(int id_lugar, String nombre_lugar, String punto_cardinal, String ubicacion, InputStream imagen, String descripcion) {
 
         String respuesta = null;
         try {
@@ -68,7 +77,7 @@ public class LugarTripAppDaos extends ConexionBDA {
             ps.setString(1, nombre_lugar);
             ps.setString(2, punto_cardinal);
             ps.setString(3, ubicacion);
-            ps.setObject(4, imagen);
+            ps.setBinaryStream(4, imagen);
             ps.setString(5, descripcion);
             ps.setInt(6, id_lugar);
 
@@ -106,7 +115,7 @@ public class LugarTripAppDaos extends ConexionBDA {
                 aux.setNombre_lugar(resultado.getString(2));
                 aux.setPunto_cardinal(resultado.getString(3));
                 aux.setUbicacion(resultado.getString(4));
-                aux.setImagen(resultado.getObject(5));
+                aux.setImagen(resultado.getBinaryStream(5));
                 aux.setDescripcion(resultado.getString(6));
                 lista.add(aux);
 
@@ -123,10 +132,81 @@ public class LugarTripAppDaos extends ConexionBDA {
         }
         return lista;
     }
+    
+    public List<EntLugarTripApp> Listaprueba() {
+        List<EntLugarTripApp> lista = new ArrayList<>();
+        String sql ="select * from lugar";
+        try {
+            con = cn.getConexionMySQL();
+            ps=con.prepareStatement(sql);
+            rs=ps.executeQuery();
+            while (rs.next()) {                
+                EntLugarTripApp l = new EntLugarTripApp();
+                l.setId_lugar(rs.getInt(1));
+                l.setNombre_lugar(rs.getString(2));
+                l.setPunto_cardinal(rs.getString(3));
+                l.setUbicacion(rs.getString(4));
+                l.setImagen(rs.getBinaryStream(5));
+                l.setDescripcion(rs.getString(6));
+                lista.add(l);
+            }
+        } catch (Exception e) {
+        }
+        return lista;
+    }
+    
+    public ArrayList<EntLugarTripApp> arrayprueba() {
+        ArrayList<EntLugarTripApp> lista = new ArrayList<EntLugarTripApp>();
+        String sql ="select * from lugar";
+        try {
+            con = cn.getConexionMySQL();
+            ps=con.prepareStatement(sql);
+            rs=ps.executeQuery();
+            while (rs.next()) {                
+                EntLugarTripApp l = new EntLugarTripApp();
+                l.setId_lugar(rs.getInt(1));
+                l.setNombre_lugar(rs.getString(2));
+                l.setPunto_cardinal(rs.getString(3));
+                l.setUbicacion(rs.getString(4));
+                l.setImagen(rs.getBinaryStream(5));
+                l.setDescripcion(rs.getString(6));
+                lista.add(l);
+            }
+        } catch (Exception e) {
+        }
+        return lista;
+    }
+    
+    public void ListarImg(int id_lugar, HttpServletResponse response){
+        String sql = "select * from lugar where id_lugar="+id_lugar;
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+        BufferedInputStream bufferedInputStream = null;
+        BufferedOutputStream bufferedOutputStream = null;
+        response.setContentType("image/*");
+        try {
+            outputStream=response.getOutputStream();
+            con=cn.getcon();
+            ps=con.prepareStatement(sql);
+            rs=ps.executeQuery();
+            
+            if (rs.next()) {
+                inputStream=rs.getBinaryStream("imagen");
+            }
+            bufferedInputStream=new BufferedInputStream(inputStream);
+            bufferedOutputStream= new BufferedOutputStream(outputStream);
+            int i=0;
+            while((i=bufferedInputStream.read())!=-1){
+                bufferedOutputStream.write(i);
+            }
+        } catch (Exception e) {
+        }
+    
+    }
 
     public String EliminarLugar(int id_lugar) {
         String respuesta = null;
-        consulta = "DELETE FROM lugar WHERE id_lugar =?";
+        consulta = "DELETE FROM lugar WHERE id_lugar=?";
         try {
             ps = getcon().prepareStatement(consulta);
             ps.setInt(1, id_lugar);
@@ -149,5 +229,27 @@ public class LugarTripAppDaos extends ConexionBDA {
             return respuesta;
         }
     }
+    
+    public List buscar(String texto){
+        List<EntLugarTripApp> lista = new ArrayList<>();
+        String sql;
+        sql="select * from lugar where id_lugar like '%"+texto+"%' or nombre_lugar like '%"+texto+"%' or punto_cardinal like '%"+texto+"%' or ubicacion like '%"+texto+"%'";
+        try {
+            con=cn.getConexionMySQL();
+            ps=con.prepareStatement(sql);
+            rs=ps.executeQuery();
+            while(rs.next()){
+                EntLugarTripApp l = new EntLugarTripApp();
+                l.setId_lugar(rs.getInt(1));
+                l.setNombre_lugar(rs.getString(2));
+                l.setPunto_cardinal(rs.getString(3));
+                l.setUbicacion(rs.getString(4));
 
+                lista.add(l);
+            
+            }
+        } catch (Exception e) {
+        }
+        return lista;
+    }
 }
