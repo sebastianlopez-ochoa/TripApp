@@ -97,7 +97,6 @@
                             <th class="text-center">NOMBRE</th>
                             <th class="text-center">PUNTO CARDINAL</th>
                             <th class="text-center">UBICACION</th>
-                            <th class="text-center">DESCRIPCION</th>
                         </tr>
                     </thead>
                     <tbody id="tbodys">
@@ -109,7 +108,6 @@
                             <td><%= rs.getString("nombre_lugar")%></td>
                             <td class="text-center"><%= rs.getString("punto_cardinal")%></td>
                             <td class="text-center"><%= rs.getString("ubicacion")%></td>
-                            <td><%= rs.getString("descripcion")%></td>
                             <td class="text-center">
                                 <a href="TripAppVer.jsp?idd=<%= rs.getInt("id_lugar")%>" class="btn btn-warning btn-sm">Ver</a>
                             </td>

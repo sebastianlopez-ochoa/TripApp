@@ -32,7 +32,7 @@
 
     <div id="contenedor">
         <div class="hombres">
-            <h2 class="pueblo">ADMINISTRADOR</h2>
+            <h2 name="cuenta" class="pueblo">ADMINISTRADOR</h2>
         </div>
     </div>
 

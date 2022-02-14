@@ -47,7 +47,7 @@
                     <h4 class="texto9">Contraseña:</h4>
                     <input type="password" name="txtContrasena" class="form-control" placeholder="Contraseña" />
                     <br>
-                    <input type="submit" class="btn btn-primary btn-lg" value="Log in"
+                    <input type="submit" class="btn btn-primary btn-lg" id="login" value="Log in"
                         style="background: #3e7c17; width: auto; height: auto; font-size: 15px; border-color: black;" />
                 </form>
             </article>
